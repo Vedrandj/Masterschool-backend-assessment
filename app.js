@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const photoRoutes = require("./routes/photoRoutes");
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +14,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/photos", photoRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on PORT 3000`);

@@ -38,7 +38,28 @@ const getPhotoById = async (req, res) => {
   }
 };
 
+const getPhotoByUsername = async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const response = await axios.get(`${BASE_URL}/users/${username}/photos`, {
+      headers: authorizationHeader,
+    });
+
+    const userPhotos = response.data.map(({ id, user, description, urls }) => ({
+      id,
+      username: user.username,
+      url: urls.raw,
+      description: description || "No description provided.",
+    }));
+    return res.status(200).json(userPhotos);
+  } catch (err) {
+    return res.status(err.status).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getRawPhotos,
   getPhotoById,
+  getPhotoByUsername,
 };
