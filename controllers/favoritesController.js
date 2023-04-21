@@ -18,7 +18,7 @@ const setFavorite = asyncHandler(async (req, res) => {
     throw new Error("Please fill all text fields");
   }
 
-  const newFavoritePhoto = await FavoritePhotos.create({
+  const newFavoritePhoto = await favoritesPhotos.create({
     user: id,
     url,
     username,
@@ -29,7 +29,7 @@ const setFavorite = asyncHandler(async (req, res) => {
 });
 
 const updateFavorite = asyncHandler(async (req, res) => {
-  const photo = await FavoritePhotos.findById(req.params.id);
+  const photo = await favoritesPhotos.findById(req.params.id);
 
   if (!photo) {
     res.status(400);
@@ -41,7 +41,7 @@ const updateFavorite = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
-  const updatedPhoto = await FavoritePhotos.findByIdAndUpdate(
+  const updatedPhoto = await favoritesPhotos.findByIdAndUpdate(
     req.params.id,
     req.body,
     { new: true }
@@ -51,7 +51,7 @@ const updateFavorite = asyncHandler(async (req, res) => {
 });
 
 const deleteFavorite = asyncHandler(async (req, res) => {
-  const photo = await FavoritePhotos.findById(req.params.id);
+  const photo = await favoritesPhotos.findById(req.params.id);
 
   if (!photo) {
     res.status(400);
